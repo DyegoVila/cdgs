@@ -1,3 +1,5 @@
+#gatilho
+
 DELIMITER $$
 
 CREATE TRIGGER tgRgistra
@@ -18,3 +20,24 @@ END$$
 
 DELIMITER;
       
+#Stored Procedure
+
+DELIMITER $$
+
+CREATE PROCEDURE spProdutoAltera (
+    IN p_CoProduto SMALLINT,
+    IN p_NoProduto VARCHAR(50),
+    IN p_VaProduto DECIMAL(7,2),
+    IN p_QtEstoque SMALLINT
+)
+BEGIN
+    UPDATE TbProduto
+    SET
+        NoProduto = p_NoProduto,
+        VaProduto = p_VaProduto,
+        QtEstoque = p_QtEstoque
+    WHERE
+        CoProduto = p_CoProduto;
+END$$
+
+DELIMITER ;
