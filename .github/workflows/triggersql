@@ -1,0 +1,20 @@
+DELIMITER $$
+
+CREATE TRIGGER tgRgistra
+AFTER UPDATE ON tbproduto
+FOR EACH ROW
+BEGIN
+    IF.OLD.VaProduto <> NEW.VaProduto THEN
+      INSERT INTO Tblog (TxLog)
+      VALUES (
+          CONCAT (
+              'o produto', NEW.NoProduto,
+              ' mudou de R$', FORMAT(OLD.VaProduto, 2),
+              ' para R$', FORMAT(NEW.VaProduto, 2), '.'
+                )
+              );
+          END IF;
+END$$
+
+DELIMITER;
+      
